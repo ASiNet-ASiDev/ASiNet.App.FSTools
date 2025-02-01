@@ -32,7 +32,7 @@ public partial class FilesContextMenu : ContextMenu
     public readonly static DependencyProperty SelectAllCommandProperty = DependencyProperty.Register(nameof(SelectAllCommand), typeof(ICommand), typeof(FilesContextMenu), new PropertyMetadata(null));
     public readonly static DependencyProperty UnselectAllCommandProperty = DependencyProperty.Register(nameof(UnselectAllCommand), typeof(ICommand), typeof(FilesContextMenu), new PropertyMetadata(null));
     public readonly static DependencyProperty BackToParentCommandProperty = DependencyProperty.Register(nameof(BackToParentCommand), typeof(ICommand), typeof(FilesContextMenu), new PropertyMetadata(null));
-    public readonly static DependencyProperty FileSpecificMenuOptionsIsVisibleProperty = DependencyProperty.Register(nameof(FileSpecificMenuOptionsIsVisible), typeof(bool), typeof(FilesContextMenu), new PropertyMetadata(null));
+    public readonly static DependencyProperty FileSpecificMenuOptionsIsEnabledProperty = DependencyProperty.Register(nameof(FileSpecificMenuOptionsIsEnabled), typeof(bool), typeof(FilesContextMenu), new PropertyMetadata(null));
 
     public event Action? OpenFile;
     public event Action? RenameFile;
@@ -43,10 +43,10 @@ public partial class FilesContextMenu : ContextMenu
     public event Action? UnselectAllFiles;
     public event Action? BackToParentFile;
 
-    public bool FileSpecificMenuOptionsIsVisible
+    public bool FileSpecificMenuOptionsIsEnabled
     {
-        get { return (bool)GetValue(FileSpecificMenuOptionsIsVisibleProperty); }
-        set { SetValue(FileSpecificMenuOptionsIsVisibleProperty, value); }
+        get { return (bool)GetValue(FileSpecificMenuOptionsIsEnabledProperty); }
+        set { SetValue(FileSpecificMenuOptionsIsEnabledProperty, value); }
     }
 
     public ICommand? OpenFileCommand

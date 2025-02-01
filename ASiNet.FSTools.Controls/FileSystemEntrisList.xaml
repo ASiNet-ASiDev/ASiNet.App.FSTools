@@ -17,7 +17,7 @@
 
         <Style TargetType="ListViewItem">
             <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
-            <Setter Property="ContextMenu" Value="{DynamicResource MainContextMenu}"/>
+            <Setter Property="ContextMenu" Value="{Binding ContextMenu, RelativeSource={RelativeSource AncestorType=local:FileSystemEntriesList}}"/>
         </Style>
     </Grid.Resources>
     <Grid>
@@ -50,7 +50,7 @@
               BorderThickness="0" 
               SelectionMode="Extended" 
               SelectionChanged="ItemsList_SelectionChanged" 
-              ContextMenu="{DynamicResource MainContextMenu}">
+              ContextMenu="{Binding ContextMenu, RelativeSource={RelativeSource AncestorType=local:FileSystemEntriesList}}">
         <ListView.ItemTemplate>
             <DataTemplate>
                 <Grid>

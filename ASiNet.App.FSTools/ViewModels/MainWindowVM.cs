@@ -7,6 +7,8 @@ namespace ASiNet.App.FSTools.ViewModels;
 
 public partial class MainWindowVM : ObservableObject
 {
+    [ObservableProperty]
+    public partial bool IsSelectedItems { get; set; }
 
     public ObservableCollection<FileSystemEntryVM> Items { get; } =
         [new(new() { Name = "Test1", Type = "File" }), new(new() { Name = "Test2", Type = "File" }), new(new() { Name = "Test3", Type = "File" })];

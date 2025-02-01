@@ -7,18 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <MenuItem Header="Open" x:Name="OpenFileMenuBtn" Click="OpenFileMenuBtn_Click" 
-              IsEnabled="{Binding FileSpecificMenuOptionsIsVisible, RelativeSource={RelativeSource AncestorType=local:FilesContextMenu}}"/>
+              IsEnabled="{Binding FileSpecificMenuOptionsIsEnabled, RelativeSource={RelativeSource AncestorType=local:FilesContextMenu}}"/>
     <Separator/>
     <MenuItem Header="Rename" x:Name="RenameFileMenuBtn" Click="RenameFileMenuBtn_Click"
-              IsEnabled="{Binding FileSpecificMenuOptionsIsVisible, RelativeSource={RelativeSource AncestorType=local:FilesContextMenu}}"/>
+              IsEnabled="{Binding FileSpecificMenuOptionsIsEnabled, RelativeSource={RelativeSource AncestorType=local:FilesContextMenu}}"/>
     <Separator/>
     <MenuItem Header="Move" x:Name="MoveFileMenuBtn" Click="MoveFileMenuBtn_Click"
-              IsEnabled="{Binding FileSpecificMenuOptionsIsVisible, RelativeSource={RelativeSource AncestorType=local:FilesContextMenu}}"/>
+              IsEnabled="{Binding FileSpecificMenuOptionsIsEnabled, RelativeSource={RelativeSource AncestorType=local:FilesContextMenu}}"/>
     <MenuItem Header="Copy" x:Name="CopyFileMenuBtn" Click="CopyFileMenuBtn_Click"
-              IsEnabled="{Binding FileSpecificMenuOptionsIsVisible, RelativeSource={RelativeSource AncestorType=local:FilesContextMenu}}"/>
+              IsEnabled="{Binding FileSpecificMenuOptionsIsEnabled, RelativeSource={RelativeSource AncestorType=local:FilesContextMenu}}"/>
     <Separator/>
     <MenuItem Header="Delete" x:Name="DeleteFileMenuBtn" Click="DeleteFileMenuBtn_Click"
-              IsEnabled="{Binding FileSpecificMenuOptionsIsVisible, RelativeSource={RelativeSource AncestorType=local:FilesContextMenu}}"/>
+              IsEnabled="{Binding FileSpecificMenuOptionsIsEnabled, RelativeSource={RelativeSource AncestorType=local:FilesContextMenu}}"/>
     <MenuItem Header="Selection">
         <MenuItem Header="Select All" Name="SelectAllMenuBtn" Click="SelectAllMenuBtn_Click"/>
         <MenuItem Header="Unselect All" Name="UnselectAllMenuBtn" Click="UnselectAllMenuBtn_Click"/>
