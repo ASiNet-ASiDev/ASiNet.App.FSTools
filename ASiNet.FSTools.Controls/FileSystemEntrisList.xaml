@@ -1,0 +1,77 @@
+﻿<Grid x:Class="ASiNet.FSTools.Controls.FileSystemEntriesList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ASiNet.FSTools.Controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Grid.IsSharedSizeScope="True">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="30"/>
+        <RowDefinition/>
+    </Grid.RowDefinitions>
+    <Grid.Resources>
+        <local:FilesContextMenu x:Key="MainContextMenu"/>
+
+
+        <Style TargetType="ListViewItem">
+            <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+            <Setter Property="ContextMenu" Value="{DynamicResource MainContextMenu}"/>
+        </Style>
+    </Grid.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="NameColumn"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="ExtensionColumn"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="EditTimeColumn"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="CreateTimeColumn"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="TypeColumn"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="SizeColumn"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Icon" VerticalAlignment="Center" Margin="5"/>
+        <GridSplitter Width="3"/>
+        <TextBlock Grid.Column="1" Text="Name" VerticalAlignment="Center" Margin="5"/>
+        <GridSplitter Grid.Column="1" Width="3"/>
+        <TextBlock Grid.Column="2" Text="Extension" VerticalAlignment="Center" Margin="5"/>
+        <GridSplitter Grid.Column="2" Width="3"/>
+        <TextBlock Grid.Column="3" Text="Create Time" VerticalAlignment="Center" Margin="5"/>
+        <GridSplitter Grid.Column="3" Width="3"/>
+        <TextBlock Grid.Column="4" Text="Edit Time" VerticalAlignment="Center" Margin="5"/>
+        <GridSplitter Grid.Column="4" Width="3"/>
+        <TextBlock Grid.Column="5" Text="Type" VerticalAlignment="Center" Margin="5"/>
+        <GridSplitter Grid.Column="5" Width="3"/>
+        <TextBlock Grid.Column="6" Text="Size" VerticalAlignment="Center" Margin="5"/>
+    </Grid>
+    <ListView x:Name="ItemsList" 
+              Grid.Row="1" 
+              Background="Transparent" 
+              BorderThickness="0" 
+              SelectionMode="Extended" 
+              SelectionChanged="ItemsList_SelectionChanged" 
+              ContextMenu="{DynamicResource MainContextMenu}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="NameColumn"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="ExtensionColumn"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="EditTimeColumn"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="CreateTimeColumn"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="TypeColumn"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="SizeColumn"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="{Binding Icon}"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" Margin="5"/>
+                    <TextBlock Grid.Column="2" Text="{Binding Extension}" VerticalAlignment="Center" Margin="5"/>
+                    <TextBlock Grid.Column="3" Text="{Binding CreateTime}" VerticalAlignment="Center" Margin="5"/>
+                    <TextBlock Grid.Column="4" Text="{Binding EditTime}" VerticalAlignment="Center" Margin="5"/>
+                    <TextBlock Grid.Column="5" Text="{Binding Type}" VerticalAlignment="Center" Margin="5"/>
+                    <TextBlock Grid.Column="6" Text="{Binding Size}" VerticalAlignment="Center" Margin="5"/>
+                </Grid>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</Grid>
