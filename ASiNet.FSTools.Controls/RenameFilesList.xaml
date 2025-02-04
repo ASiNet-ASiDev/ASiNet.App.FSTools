@@ -1,12 +1,60 @@
-﻿<UserControl x:Class="ASiNet.FSTools.Controls.RenameFilesList"
+﻿<Grid x:Class="ASiNet.FSTools.Controls.RenameFilesList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ASiNet.FSTools.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Grid.IsSharedSizeScope="True">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="40"/>
+        <RowDefinition/>
+    </Grid.RowDefinitions>
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="OldName"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="NewName"/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="NewExe"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Old Name" VerticalAlignment="Center" Margin="5"/>
+        <GridSplitter Width="3"/>
+        <TextBlock Grid.Column="1" Text="New Name" VerticalAlignment="Center" Margin="5"/>
+        <GridSplitter Width="3" Grid.Column="1"/>
+        <TextBlock Grid.Column="2" Text="New Extension" VerticalAlignment="Center" Margin="5"/>
     </Grid>
-</UserControl>
+    <ListView x:Name="ItemsList" Grid.Row="1" Background="Transparent" BorderThickness="0">
+        <ListView.ItemContainerStyle>
+            <Style TargetType="ListViewItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ListView.ItemContainerStyle>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="OldName"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="NewName"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="NewExe"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding OldName}"/>
+                    <TextBox ToolTip="New file name" Grid.Column="1" Text="{Binding NewName, Mode=TwoWay}" TextAlignment="Center" VerticalContentAlignment="Center" AcceptsReturn="False"/>
+                    <TextBox ToolTip="New file extension" Grid.Column="2" Text="{Binding NewExtension, Mode=TwoWay}" IsEnabled="{Binding ExtensionIsAvailable}" TextAlignment="Center"
+                             VerticalContentAlignment="Center" AcceptsReturn="False"/>
+                </Grid>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</Grid>

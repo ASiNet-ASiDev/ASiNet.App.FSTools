@@ -19,4 +19,14 @@ public partial class FileSystemEntryVM(FileSystemEntry entry) : ObservableObject
     public partial string Type { get; set; } = entry.Type;
 
     public FileSystemEntry Entry { get; } = entry;
+
+    public void Rename(string? newName, string? newExtension)
+    {
+        if(Entry.Rename(newName, newExtension))
+        {
+            Name = Entry.Name;
+            Extension = Entry.Extension;
+        }
+        
+    }
 }

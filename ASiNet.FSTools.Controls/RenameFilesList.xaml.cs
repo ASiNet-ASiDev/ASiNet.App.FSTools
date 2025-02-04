@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,10 +18,28 @@ namespace ASiNet.FSTools.Controls;
 /// <summary>
 /// Логика взаимодействия для RenameFilesList.xaml
 /// </summary>
-public partial class RenameFilesList : UserControl
+public partial class RenameFilesList : Grid
 {
     public RenameFilesList()
     {
         InitializeComponent();
+    }
+
+    public readonly static DependencyProperty ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(IEnumerable), typeof(RenameFilesList), new PropertyMetadata(null));
+
+
+    public IEnumerable? ItemsSource
+    {
+        get { return GetValue(ItemsSourceProperty) as IEnumerable; }
+        set { SetValue(ItemsSourceProperty, value); }
+    }
+
+    protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
+    {
+        switch (e.Property.Name)
+        {
+            case nameof(ItemsSource): ItemsList.SetValue(ListView.ItemsSourceProperty, e.NewValue); break;
+        }
+        base.OnPropertyChanged(e);
     }
 }
