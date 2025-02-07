@@ -1,11 +1,13 @@
-﻿namespace ASiNet.FSTools.Models.Entities;
-public class FileSystemEntry(string name, string extension, string type)
+﻿using ASiNet.FSTools.Models.Enums;
+
+namespace ASiNet.FSTools.Models.Entities;
+public class FileSystemEntry(string name, string extension, string path, EntryType type)
 {
     public string Name { get; private set; } = name;
 
     public string Extension { get; private set; } = extension;
 
-    public string Path { get; private set; } = null!;
+    public string Path { get; private set; } = path;
 
     public DateTime CreateTime { get; private set; }
 
@@ -13,7 +15,7 @@ public class FileSystemEntry(string name, string extension, string type)
 
     public long Size { get; private set; }
 
-    public string Type { get; private set; } = type;
+    public EntryType Type { get; private set; } = type;
 
 
     public bool Rename(string? newName, string? extension = null)

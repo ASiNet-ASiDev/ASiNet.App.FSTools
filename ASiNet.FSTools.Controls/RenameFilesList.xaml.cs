@@ -33,13 +33,4 @@ public partial class RenameFilesList : Grid
         get { return GetValue(ItemsSourceProperty) as IEnumerable; }
         set { SetValue(ItemsSourceProperty, value); }
     }
-
-    protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
-    {
-        switch (e.Property.Name)
-        {
-            case nameof(ItemsSource): ItemsList.SetValue(ListView.ItemsSourceProperty, e.NewValue); break;
-        }
-        base.OnPropertyChanged(e);
-    }
 }

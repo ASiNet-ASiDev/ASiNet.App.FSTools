@@ -12,12 +12,19 @@
         <vm:MainWindowVM/>
     </Window.DataContext>
     <Grid>
-        <controls:FileSystemEntriesList 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <controls:SearchBox Text="{Binding CurrentPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding SearchResultItems, Mode=OneWay}" 
+                            SelectedItemCommand="{Binding SelectedSearchItemCommand}" Focused="{Binding IsFocusedSearchBox, Mode=OneWayToSource}"
+                            ToParentCommand="{Binding BackToParentCommand}"/>
+        <controls:FileSystemEntriesList  Grid.Row="1"
             x:Name="FSRoot"
             ItemsSource="{Binding Items}" 
             OpenCommand="{Binding OpenFileCommand}" 
             IsSelectedItems="{Binding IsSelectedItems, Mode=OneWayToSource}"
-            SelectedItems="{Binding SelectedItems}" Margin="-30,25,30,-25" 
+            SelectedItems="{Binding SelectedItems}" 
             >
             <controls:FileSystemEntriesList.ContextMenu>
                 <controls:FilesContextMenu FileSpecificMenuOptionsIsEnabled="{Binding IsSelectedItems}"
@@ -25,7 +32,8 @@
                                            RenameFileCommand="{Binding RenameFilesCommand}"
                                            MoveFileCommand="{Binding MoveFilesCommand}"
                                            CopyFileCommand="{Binding CopyFilesCommand}"
-                                           DeleteFileCommand="{Binding DeleteFilesCommand}"
+                                           DeleteFileCommand="{Binding DeleteFilesCommand}" 
+                                           BackToParentCommand="{Binding BackToParentCommand}"
                                            />
             </controls:FileSystemEntriesList.ContextMenu>
         </controls:FileSystemEntriesList>

@@ -1,0 +1,29 @@
+﻿<Grid x:Class="ASiNet.FSTools.Controls.SearchBox"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ASiNet.FSTools.Controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="18" d:DesignWidth="800">
+
+    <TextBox x:Name="SearchTextBox" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:SearchBox}}" 
+         VerticalAlignment="Bottom"
+         AcceptsReturn="False" 
+         AcceptsTab="False" 
+         ToolTip="Current path:"/>
+    <Popup PlacementTarget="{Binding ElementName=SearchBox}" IsOpen="{Binding Focused, RelativeSource={RelativeSource AncestorType=local:SearchBox}}" Placement="Bottom" MaxHeight="200">
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListView x:Name="ItemsPopup" Grid.Row="1" Margin="5,5,5,0" BorderThickness="0"
+                      SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=local:SearchBox}, Mode=OneWayToSource}"
+                      ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType=local:SearchBox}, Mode=OneWay}" 
+                      SelectionMode="Single" 
+                      SelectionChanged="ListView_SelectionChanged">
+            </ListView>
+        </Grid>
+    </Popup>
+</Grid>

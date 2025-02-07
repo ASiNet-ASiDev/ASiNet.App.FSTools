@@ -22,7 +22,7 @@
         <GridSplitter Width="3" Grid.Column="1"/>
         <TextBlock Grid.Column="2" Text="New Extension" VerticalAlignment="Center" Margin="5"/>
     </Grid>
-    <ListView x:Name="ItemsList" Grid.Row="1" Background="Transparent" BorderThickness="0">
+    <ListView x:Name="ItemsList" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType=local:RenameFilesList}}" Grid.Row="1" Background="Transparent" BorderThickness="0">
         <ListView.ItemContainerStyle>
             <Style TargetType="ListViewItem">
                 <Setter Property="Template">

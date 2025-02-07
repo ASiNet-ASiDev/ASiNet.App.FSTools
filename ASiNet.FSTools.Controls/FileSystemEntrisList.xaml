@@ -40,7 +40,7 @@
         <GridSplitter Grid.Column="5" Width="3"/>
         <TextBlock Grid.Column="6" Text="Size" VerticalAlignment="Center" Margin="5"/>
     </Grid>
-    <ListView x:Name="ItemsList" 
+    <ListView x:Name="ItemsList" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType=local:FileSystemEntriesList}}"
               Grid.Row="1" 
               Background="Transparent" 
               BorderThickness="0" 
@@ -59,7 +59,7 @@
                         <ColumnDefinition Width="Auto" SharedSizeGroup="TypeColumn"/>
                         <ColumnDefinition Width="Auto" SharedSizeGroup="SizeColumn"/>
                     </Grid.ColumnDefinitions>
-                    <Image Source="{Binding Icon}"/>
+                    <Image Source="{Binding Icon}" Width="20" Height="20" Margin="5,2" RenderOptions.BitmapScalingMode="HighQuality"/>
                     <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" Margin="0,5,5,5"/>
                     <TextBlock Grid.Column="2" Text="{Binding Extension}" VerticalAlignment="Center" Margin="0,5,5,5"/>
                     <TextBlock Grid.Column="3" Text="{Binding CreateTime}" VerticalAlignment="Center" Margin="0,5,5,5"/>

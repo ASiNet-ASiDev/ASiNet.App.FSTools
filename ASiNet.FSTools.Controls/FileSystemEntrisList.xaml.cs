@@ -53,7 +53,6 @@ public partial class FileSystemEntriesList : Grid
     {
         switch (e.Property.Name)
         {
-            case nameof(ItemsSource): ItemsList.SetValue(ListView.ItemsSourceProperty, e.NewValue); break;
             case nameof(ContextMenu): 
                 if(e.OldValue is FilesContextMenu fcm)
                 {
