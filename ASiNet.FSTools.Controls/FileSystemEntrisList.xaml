@@ -11,11 +11,6 @@
         <RowDefinition Height="30"/>
         <RowDefinition/>
     </Grid.RowDefinitions>
-    <Grid.Resources>
-        <Style TargetType="ListViewItem">
-            <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
-        </Style>
-    </Grid.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn"/>
@@ -40,34 +35,138 @@
         <GridSplitter Grid.Column="5" Width="3"/>
         <TextBlock Grid.Column="6" Text="Size" VerticalAlignment="Center" Margin="5"/>
     </Grid>
+    <ListViewItem Template="{DynamicResource ListViewItemTemplate1gw}" Content="fgg" Background="AliceBlue"/>
     <ListView x:Name="ItemsList" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType=local:FileSystemEntriesList}}"
               Grid.Row="1" 
               Background="Transparent" 
               BorderThickness="0" 
               SelectionMode="Extended" 
               SelectionChanged="ItemsList_SelectionChanged" 
-              ContextMenu="{Binding ContextMenu, RelativeSource={RelativeSource AncestorType=local:FileSystemEntriesList}}">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn"/>
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="NameColumn"/>
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="ExtensionColumn"/>
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="EditTimeColumn"/>
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="CreateTimeColumn"/>
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="TypeColumn"/>
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="SizeColumn"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="{Binding Icon}" Width="20" Height="20" Margin="5,2" RenderOptions.BitmapScalingMode="HighQuality"/>
-                    <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" Margin="0,5,5,5"/>
-                    <TextBlock Grid.Column="2" Text="{Binding Extension}" VerticalAlignment="Center" Margin="0,5,5,5"/>
-                    <TextBlock Grid.Column="3" Text="{Binding CreateTime}" VerticalAlignment="Center" Margin="0,5,5,5"/>
-                    <TextBlock Grid.Column="4" Text="{Binding EditTime}" VerticalAlignment="Center" Margin="0,5,5,5"/>
-                    <TextBlock Grid.Column="5" Text="{Binding Type}" VerticalAlignment="Center" Margin="0,5,5,5"/>
-                    <TextBlock Grid.Column="6" Text="{Binding Size}" VerticalAlignment="Center" Margin="0,5,5,5"/>
-                </Grid>
-            </DataTemplate>
-        </ListView.ItemTemplate>
+              ContextMenu="{Binding ContextMenu, RelativeSource={RelativeSource AncestorType=local:FileSystemEntriesList}}" Margin="-5,0,5,0">
+        <ListView.ItemContainerStyle>
+            <Style TargetType="ListViewItem">
+                <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Entry.Type}" Value="File">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="NameColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="ExtensionColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="EditTimeColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="CreateTimeColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="TypeColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="SizeColumn"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Source="{Binding Icon}" Width="20" Height="20" Margin="5,2" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                    <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" Margin="0,5,5,5"/>
+                                                    <TextBlock Grid.Column="2" Text="{Binding Extension}" VerticalAlignment="Center" Margin="0,5,5,5"/>
+                                                    <TextBlock Grid.Column="3" Text="{Binding CreateTime}" VerticalAlignment="Center" Margin="0,5,5,5"/>
+                                                    <TextBlock Grid.Column="4" Text="{Binding EditTime}" VerticalAlignment="Center" Margin="0,5,5,5"/>
+                                                    <TextBlock Grid.Column="5" Text="{Binding Type}" VerticalAlignment="Center" Margin="0,5,5,5"/>
+                                                    <TextBlock Grid.Column="6" Text="{Binding Size}" VerticalAlignment="Center" Margin="0,5,5,5"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Entry.Type}" Value="Folder">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="NameColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="ExtensionColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="EditTimeColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="CreateTimeColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="TypeColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="SizeColumn"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Source="{Binding Icon}" Width="20" Height="20" Margin="5,2" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                    <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" Margin="0,5,5,5"/>
+                                                    <TextBlock Grid.Column="3" Text="{Binding CreateTime}" VerticalAlignment="Center" Margin="0,5,5,5"/>
+                                                    <TextBlock Grid.Column="4" Text="{Binding EditTime}" VerticalAlignment="Center" Margin="0,5,5,5"/>
+                                                    <TextBlock Grid.Column="5" Text="{Binding Type}" VerticalAlignment="Center" Margin="0,5,5,5"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Entry.Type}" Value="Drive">
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="IconColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="NameColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="ExtensionColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="EditTimeColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="CreateTimeColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="TypeColumn"/>
+                                                        <ColumnDefinition Width="Auto" SharedSizeGroup="SizeColumn"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Image Source="{Binding Icon}" Width="20" Height="20" Margin="5,2" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                                    <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" Margin="0,5,5,5"/>
+                                                    <TextBlock Grid.Column="5" Text="{Binding Type}" VerticalAlignment="Center" Margin="0,5,5,5"/>
+                                                    <ProgressBar Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" Minimum="0" Width="200" Height="5" HorizontalAlignment="Left"
+                                                                 Maximum="{Binding Entry.Size, Mode=OneWay}" 
+                                                                 Value="{Binding Entry.TotalFreeSpace, Mode=OneWay}">
+                                                        <ProgressBar.RenderTransform>
+                                                            <RotateTransform Angle="180" CenterX="100" CenterY="2.5"/>
+                                                        </ProgressBar.RenderTransform>
+                                                    </ProgressBar>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>
+                                </MultiTrigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ListView.ItemContainerStyle>
     </ListView>
 </Grid>

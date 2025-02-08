@@ -37,15 +37,21 @@ public class FilesContext : IDisposable
         if (dirPath is null)
         {
             foreach (var drive in DriveInfo.GetDrives())
-                yield return new(drive.Name, string.Empty, drive.RootDirectory.FullName, Enums.EntryType.Drive);
+                yield return new(drive.Name, string.Empty, drive.RootDirectory.FullName, Enums.EntryType.Drive, DateTime.MinValue, DateTime.MinValue, drive.TotalSize, drive.TotalFreeSpace);
             yield break;
         }
         if (Directory.Exists(dirPath))
         {
             foreach (var item in Directory.EnumerateDirectories(dirPath).Where(x => !File.GetAttributes(x).HasFlag(_ignore)))
-                yield return new(Path.GetFileName(item), string.Empty, item, Enums.EntryType.Folder);
+            {
+                var dirInfo = new DirectoryInfo(item);
+                yield return new(Path.GetFileName(item), string.Empty, item, Enums.EntryType.Folder, dirInfo.CreationTime, dirInfo.LastWriteTime, 0);
+            }
             foreach (var item in Directory.EnumerateFiles(dirPath).Where(x => !File.GetAttributes(x).HasFlag(_ignore)))
-                yield return new(Path.GetFileNameWithoutExtension(item), Path.GetExtension(item), item, Enums.EntryType.File);
+            {
+                var fileInfo = new FileInfo(item);
+                yield return new(Path.GetFileNameWithoutExtension(item), Path.GetExtension(item), item, Enums.EntryType.File, fileInfo.CreationTime, fileInfo.LastWriteTime, fileInfo.Length);
+            }
             _watcher.Value.Path = dirPath;
             _watcher.Value.EnableRaisingEvents = true;
         }

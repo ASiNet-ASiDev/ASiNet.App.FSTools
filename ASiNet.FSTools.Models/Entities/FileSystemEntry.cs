@@ -1,7 +1,7 @@
 ﻿using ASiNet.FSTools.Models.Enums;
 
 namespace ASiNet.FSTools.Models.Entities;
-public class FileSystemEntry(string name, string extension, string path, EntryType type)
+public class FileSystemEntry(string name, string extension, string path, EntryType type, DateTime createTime, DateTime editTime, long size, long totalFreeSpace = 0)
 {
     public string Name { get; private set; } = name;
 
@@ -9,18 +9,16 @@ public class FileSystemEntry(string name, string extension, string path, EntryTy
 
     public string Path { get; private set; } = path;
 
-    public DateTime CreateTime { get; private set; }
+    public DateTime CreateTime { get; private set; } = createTime;
 
-    public DateTime EditTime { get; private set; }
+    public DateTime EditTime { get; private set; } = editTime;
 
-    public long Size { get; private set; }
+    public long Size { get; private set; } = size;
+
+    public long TotalFreeSpace { get; private set; } = totalFreeSpace;
 
     public EntryType Type { get; private set; } = type;
 
-    public static FileSystemEntry FromPath(string path) =>
-        new(System.IO.Path.GetFileNameWithoutExtension(path),
-            System.IO.Path.GetExtension(path) ?? string.Empty,
-            path, EntryType.Folder);
 
     public bool Rename(string? newName, string? extension = null)
     {
