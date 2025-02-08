@@ -14,7 +14,7 @@ public static class DirectorySearch
     {
         if (Directory.Exists(path))
         {
-            foreach (var item in Directory.GetDirectories(path))
+            foreach (var item in Directory.GetDirectories(path).Where(x => !File.GetAttributes(x).HasFlag(FileAttributes.Hidden)))
             {
                 yield return item;
             }
@@ -26,7 +26,7 @@ public static class DirectorySearch
                 yield break;
             var np = parent.LastOrDefault() == '\\' ? parent : parent + '\\';
             var dn = Path.GetFileNameWithoutExtension(path);
-            foreach (var item in Directory.GetDirectories(np, $"{dn}*"))
+            foreach (var item in Directory.GetDirectories(np, $"{dn}*").Where(x => !File.GetAttributes(x).HasFlag(FileAttributes.Hidden)))
             {
                 yield return item;
             }

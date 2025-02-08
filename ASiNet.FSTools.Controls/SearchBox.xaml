@@ -16,14 +16,16 @@
         <Grid Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ListView x:Name="ItemsPopup" Grid.Row="1" Margin="5,5,5,0" BorderThickness="0"
-                      SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=local:SearchBox}, Mode=OneWayToSource}"
-                      ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType=local:SearchBox}, Mode=OneWay}" 
-                      SelectionMode="Single" 
-                      SelectionChanged="ListView_SelectionChanged">
-            </ListView>
+            <ScrollViewer Grid.Row="1" Margin="5,5,5,0">
+                <ListView x:Name="ItemsPopup" BorderThickness="0"
+                          SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=local:SearchBox}, Mode=OneWayToSource}"
+                          ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType=local:SearchBox}, Mode=OneWay}" 
+                          SelectionMode="Single" 
+                          SelectionChanged="ListView_SelectionChanged">
+                </ListView>
+            </ScrollViewer>
         </Grid>
     </Popup>
 </Grid>
