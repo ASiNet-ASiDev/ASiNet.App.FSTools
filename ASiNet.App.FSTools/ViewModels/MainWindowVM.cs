@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
+using System.Windows;
+using System.Windows.Shapes;
 using ASiNet.App.FSTools.View;
 using ASiNet.App.FSTools.ViewModels.Entities;
 using ASiNet.FSTools.Models;
@@ -37,7 +40,7 @@ public partial class MainWindowVM : ObservableObject
 
     private FilesContext _fc;
 
-    private static char[] _invalidPathChars = Path.GetInvalidPathChars();
+    private static char[] _invalidPathChars = System.IO.Path.GetInvalidPathChars();
 
     [RelayCommand]
     private void OpenFile(FileSystemEntryVM item)
@@ -49,12 +52,28 @@ public partial class MainWindowVM : ObservableObject
             Items.Clear();
             _fc.GetEntries(item.Entry.Path).ForEach(x => Items.Add(new(x)));
         }
+        if(item.Entry.Type is EntryType.File)
+        {
+            try
+            {
+                using Process fileopener = new Process();
+
+                fileopener.StartInfo.FileName = "explorer";
+                fileopener.StartInfo.Arguments = "\"" + item.Entry.Path + "\"";
+                fileopener.Start();
+            }
+            catch
+            {
+                MessageBox.Show("Не удалось открыть файл.", "Open file error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 
     [RelayCommand]
     private void OpenFiles()
     {
-
+        if(SelectedItems.Count == 1)
+            OpenFile(SelectedItems.First());
     }
     [RelayCommand]
     private void RenameFiles()
@@ -97,7 +116,7 @@ public partial class MainWindowVM : ObservableObject
     private void BackToParent()
     {
         Items.Clear();
-        var dName = Path.GetDirectoryName(CurrentPath);
+        var dName = System.IO.Path.GetDirectoryName(CurrentPath);
         _fc.GetEntries(dName).ForEach(x => Items.Add(new(x)));
         CurrentPath = dName ?? string.Empty;
     }

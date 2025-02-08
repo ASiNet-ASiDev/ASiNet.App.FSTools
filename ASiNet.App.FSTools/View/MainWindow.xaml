@@ -16,34 +16,6 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid VerticalAlignment="Bottom">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button Content="^" Command="{Binding BackToParentCommand}"/>
-            <controls:SearchBox Grid.Column="1" Text="{Binding CurrentPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding SearchResultItems, Mode=OneWay}" 
-                    SelectedItemCommand="{Binding SelectedSearchItemCommand}" Focused="{Binding IsFocusedSearchBox, Mode=OneWayToSource}"
-                    ToParentCommand="{Binding BackToParentCommand}" MinWidth="300"/>
-        </Grid>
-        
-        <controls:FileSystemEntriesList  Grid.Row="1"
-            x:Name="FSRoot"
-            ItemsSource="{Binding Items}" 
-            OpenCommand="{Binding OpenFileCommand}" 
-            IsSelectedItems="{Binding IsSelectedItems, Mode=OneWayToSource}"
-            SelectedItems="{Binding SelectedItems}" 
-            >
-            <controls:FileSystemEntriesList.ContextMenu>
-                <controls:FilesContextMenu FileSpecificMenuOptionsIsEnabled="{Binding IsSelectedItems}"
-                                           OpenFileCommand="{Binding OpenFilesCommand}"
-                                           RenameFileCommand="{Binding RenameFilesCommand}"
-                                           MoveFileCommand="{Binding MoveFilesCommand}"
-                                           CopyFileCommand="{Binding CopyFilesCommand}"
-                                           DeleteFileCommand="{Binding DeleteFilesCommand}" 
-                                           BackToParentCommand="{Binding BackToParentCommand}"
-                                           />
-            </controls:FileSystemEntriesList.ContextMenu>
-        </controls:FileSystemEntriesList>
+        <controls:PagesView Grid.Row="1" SplitMode="HorizontalTwoAndVerticalTopOneAreas"/>
     </Grid>
 </Window>
