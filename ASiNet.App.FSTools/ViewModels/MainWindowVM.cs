@@ -5,6 +5,7 @@ using System.IO;
 using ASiNet.App.FSTools.View;
 using ASiNet.App.FSTools.ViewModels.Entities;
 using ASiNet.FSTools.Models;
+using ASiNet.FSTools.Models.Entities;
 using ASiNet.FSTools.Models.Enums;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -82,16 +83,12 @@ public partial class MainWindowVM : ObservableObject
     {
         if(path is null)
             return;
-        if(Items.FirstOrDefault(x => x.Entry.Path == path) is FileSystemEntryVM fsvm)
+        if(Directory.Exists(path))
         {
-            if(fsvm.Entry.Type is EntryType.Folder or EntryType.Drive)
-            {
-                OpenFile(fsvm);
-            }
-        }
-        else if(path == Path.GetDirectoryName(CurrentPath) || path == "\\")
-        {
-            BackToParent();
+            CurrentPath = path;
+            Items.ForEach(x => x.Dispose());
+            Items.Clear();
+            _fc.GetEntries(path).ForEach(x => Items.Add(new(x)));
         }
     }
 
@@ -117,19 +114,7 @@ public partial class MainWindowVM : ObservableObject
             if (IsFocusedSearchBox)
             {
                 SearchResultItems.Clear();
-                var parentPath = Path.GetDirectoryName(CurrentPath);
-                if(parentPath is not null)
-                    SearchResultItems.Add(parentPath);
-                else
-                    SearchResultItems.Add("\\");
-                bool PathComparer(FileSystemEntryVM x)
-                {
-                    if(x.Entry.Path[..CurrentPath.Length] == CurrentPath)
-                        return true;
-                    return false;
-
-                }
-                Items.Where(PathComparer).ForEach(x => SearchResultItems.Add(x.Entry.Path));
+                DirectorySearch.Search(CurrentPath).ForEach(x => SearchResultItems.Add(x));
             }
         }
         base.OnPropertyChanged(e);

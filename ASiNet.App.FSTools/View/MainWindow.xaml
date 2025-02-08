@@ -16,9 +16,17 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <controls:SearchBox Text="{Binding CurrentPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding SearchResultItems, Mode=OneWay}" 
-                            SelectedItemCommand="{Binding SelectedSearchItemCommand}" Focused="{Binding IsFocusedSearchBox, Mode=OneWayToSource}"
-                            ToParentCommand="{Binding BackToParentCommand}"/>
+        <Grid VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="^" Command="{Binding BackToParentCommand}"/>
+            <controls:SearchBox Grid.Column="1" Text="{Binding CurrentPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{Binding SearchResultItems, Mode=OneWay}" 
+                    SelectedItemCommand="{Binding SelectedSearchItemCommand}" Focused="{Binding IsFocusedSearchBox, Mode=OneWayToSource}"
+                    ToParentCommand="{Binding BackToParentCommand}" MinWidth="300"/>
+        </Grid>
+        
         <controls:FileSystemEntriesList  Grid.Row="1"
             x:Name="FSRoot"
             ItemsSource="{Binding Items}" 

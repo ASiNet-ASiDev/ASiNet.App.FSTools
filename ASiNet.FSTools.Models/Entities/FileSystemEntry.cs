@@ -17,6 +17,10 @@ public class FileSystemEntry(string name, string extension, string path, EntryTy
 
     public EntryType Type { get; private set; } = type;
 
+    public static FileSystemEntry FromPath(string path) =>
+        new(System.IO.Path.GetFileNameWithoutExtension(path),
+            System.IO.Path.GetExtension(path) ?? string.Empty,
+            path, EntryType.Folder);
 
     public bool Rename(string? newName, string? extension = null)
     {
