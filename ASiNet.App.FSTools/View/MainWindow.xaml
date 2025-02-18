@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:ASiNet.FSTools.Controls;assembly=ASiNet.FSTools.Controls"
+        xmlns:ctren="clr-namespace:ASiNet.FSTools.Controls.Enums;assembly=ASiNet.FSTools.Controls"
         xmlns:vm="clr-namespace:ASiNet.App.FSTools.ViewModels"
         xmlns:local="clr-namespace:ASiNet.App.FSTools"
         mc:Ignorable="d"
@@ -13,9 +14,20 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="22"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <controls:PagesView Grid.Row="1" SplitMode="HorizontalTwoAndVerticalTopOneAreas"/>
+        <Menu >
+            <MenuItem Header="Work area">
+                <MenuItem Header="Split mode">
+                    <MenuItem Header="No split" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static ctren:PagesViewSplitMode.NoSplit}"/>
+                    <MenuItem Header="Two Vertical" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static ctren:PagesViewSplitMode.HorizontalTwoAreas}"/>
+                    <MenuItem Header="Two Horizontal" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static ctren:PagesViewSplitMode.VerticalTwoAreas}"/>
+                    <MenuItem Header="Three Top" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static ctren:PagesViewSplitMode.HorizontalTwoAndVerticalButtonOneAreas}"/>
+                    <MenuItem Header="Three Button" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static ctren:PagesViewSplitMode.HorizontalTwoAndVerticalTopOneAreas}"/>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <controls:PagesView x:Name="PagesRoot" Grid.Row="1" SplitMode="{Binding SplitMode}" Contents="{Binding PagesContent}"/>
     </Grid>
 </Window>

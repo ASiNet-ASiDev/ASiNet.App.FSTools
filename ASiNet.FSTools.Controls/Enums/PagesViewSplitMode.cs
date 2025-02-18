@@ -8,6 +8,7 @@ namespace ASiNet.FSTools.Controls.Enums;
 
 public enum PagesViewSplitMode
 {
+    NoSplit,
     /// <summary>
     /// Вертикально, на 2 области.
     /// </summary>

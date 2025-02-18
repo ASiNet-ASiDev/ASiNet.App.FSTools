@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using ASiNet.App.FSTools.Models;
 
 namespace ASiNet.App.FSTools;
 /// <summary>
@@ -8,5 +9,8 @@ namespace ASiNet.App.FSTools;
 /// </summary>
 public partial class App : Application
 {
+
+    public PagesManager PagesManager = new();
+
 }
 
