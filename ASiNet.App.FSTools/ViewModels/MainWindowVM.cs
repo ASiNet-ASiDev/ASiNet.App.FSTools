@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using ASiNet.FSTools.Controls;
-using ASiNet.FSTools.Controls.Enums;
+using ASiNet.FSTools.SplitWorkspace.Enums;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -17,16 +17,19 @@ public partial class MainWindowVM : ObservableObject
         p2.Item1.DataContext = p2.Item2;
         PagesContent.Add(p1);
         PagesContent.Add(p2);
+
+        //var vww = new ASiNet.FSTools.VirtualWorkspace.Windows.VirtualWorkspaceWindow();
+        //vww.Show();
     }
 
     [ObservableProperty]
-    public partial PagesViewSplitMode SplitMode { get; set; }
+    public partial SplitMode SplitMode { get; set; }
 
     public ObservableCollection<(FrameworkElement, object?)> PagesContent { get; } = [];
 
 
     [RelayCommand]
-    private void SetSplitMode(PagesViewSplitMode splitMode)
+    private void SetSplitMode(SplitMode splitMode)
     {
         SplitMode = splitMode;
     }

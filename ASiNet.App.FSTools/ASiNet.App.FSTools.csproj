@@ -17,6 +17,8 @@
   <ItemGroup>
     <ProjectReference Include="..\ASiNet.FSTools.Controls\ASiNet.FSTools.Controls.csproj" />
     <ProjectReference Include="..\ASiNet.FSTools.Models\ASiNet.FSTools.Models.csproj" />
+    <ProjectReference Include="..\ASiNet.FSTools.SplitWorkspace\ASiNet.FSTools.SplitWorkspace.csproj" />
+    <ProjectReference Include="..\ASiNet.FSTools.VirtualWorkspace\ASiNet.FSTools.VirtualWorkspace.csproj" />
   </ItemGroup>
 
 </Project>

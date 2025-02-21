@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="clr-namespace:ASiNet.FSTools.Controls;assembly=ASiNet.FSTools.Controls"
-        xmlns:ctren="clr-namespace:ASiNet.FSTools.Controls.Enums;assembly=ASiNet.FSTools.Controls"
+        xmlns:swa="clr-namespace:ASiNet.FSTools.SplitWorkspace;assembly=ASiNet.FSTools.SplitWorkspace"
+        xmlns:swa_enums="clr-namespace:ASiNet.FSTools.SplitWorkspace.Enums;assembly=ASiNet.FSTools.SplitWorkspace"
         xmlns:vm="clr-namespace:ASiNet.App.FSTools.ViewModels"
         xmlns:local="clr-namespace:ASiNet.App.FSTools"
         mc:Ignorable="d"
@@ -20,14 +20,14 @@
         <Menu >
             <MenuItem Header="Work area">
                 <MenuItem Header="Split mode">
-                    <MenuItem Header="No split" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static ctren:PagesViewSplitMode.NoSplit}"/>
-                    <MenuItem Header="Two Vertical" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static ctren:PagesViewSplitMode.HorizontalTwoAreas}"/>
-                    <MenuItem Header="Two Horizontal" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static ctren:PagesViewSplitMode.VerticalTwoAreas}"/>
-                    <MenuItem Header="Three Top" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static ctren:PagesViewSplitMode.HorizontalTwoAndVerticalButtonOneAreas}"/>
-                    <MenuItem Header="Three Button" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static ctren:PagesViewSplitMode.HorizontalTwoAndVerticalTopOneAreas}"/>
+                    <MenuItem Header="No split" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static swa_enums:SplitMode.NoSplit}"/>
+                    <MenuItem Header="Two Vertical" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static swa_enums:SplitMode.HorizontalTwoAreas}"/>
+                    <MenuItem Header="Two Horizontal" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static swa_enums:SplitMode.VerticalTwoAreas}"/>
+                    <MenuItem Header="Three Top" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static swa_enums:SplitMode.HorizontalTwoAndVerticalButtonOneAreas}"/>
+                    <MenuItem Header="Three Button" Command="{Binding SetSplitModeCommand}" CommandParameter="{x:Static swa_enums:SplitMode.HorizontalTwoAndVerticalTopOneAreas}"/>
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <controls:PagesView x:Name="PagesRoot" Grid.Row="1" SplitMode="{Binding SplitMode}" Contents="{Binding PagesContent}"/>
+        <swa:SplitWorkspaceArea x:Name="PagesRoot" Grid.Row="1" SplitMode="{Binding SplitMode}" Contents="{Binding PagesContent}"/>
     </Grid>
 </Window>
