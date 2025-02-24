@@ -12,4 +12,10 @@ public partial class VirtualWorkspaceWindow : Window
         Width = SystemParameters.WorkArea.Width;
         Height = SystemParameters.WorkArea.Height;
     }
+
+
+    protected override void OnActivated(EventArgs e)
+    {
+        base.OnActivated(e);
+    }
 }

@@ -11,10 +11,12 @@
           Width="262144" 
           Height="262144" 
           MouseWheel="AreaRoot_MouseWheel" 
-          MouseMove="AreaRoot_MouseMove">
+          MouseMove="AreaRoot_MouseMove" 
+          MouseLeftButtonDown="AreaRoot_MouseLeftButtonDown" 
+          MouseLeftButtonUp="AreaRoot_MouseLeftButtonUp" 
+          MouseLeave="AreaRoot_MouseLeave">
         <Grid.RenderTransform>
             <MatrixTransform x:Name="matrixTransform"/>
         </Grid.RenderTransform>
-        <Button Width="200" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </Canvas>

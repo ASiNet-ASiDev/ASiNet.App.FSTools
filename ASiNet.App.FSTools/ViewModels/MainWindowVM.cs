@@ -18,8 +18,19 @@ public partial class MainWindowVM : ObservableObject
         PagesContent.Add(p1);
         PagesContent.Add(p2);
 
-        //var vww = new ASiNet.FSTools.VirtualWorkspace.Windows.VirtualWorkspaceWindow();
-        //vww.Show();
+        var vm = new VWWindowVM()
+        {
+            AreaViewModel = new VWAreaVM()
+        };
+        vm.AreaViewModel.Contents.Add(new AreaWindowVM() { Content = new FileExplorerPage() { DataContext = new FileExplorerPageVM() } });
+        vm.AreaViewModel.Contents.Add(new AreaWindowVM() { Content = new FileExplorerPage() { DataContext = new FileExplorerPageVM() } });
+        vm.AreaViewModel.Contents.Add(new AreaWindowVM() { Content = new FileExplorerPage() { DataContext = new FileExplorerPageVM() } });
+        vm.AreaViewModel.Contents.Add(new AreaWindowVM() { Content = new FileExplorerPage() { DataContext = new FileExplorerPageVM() } });
+        var vww = new ASiNet.FSTools.VirtualWorkspace.Windows.VirtualWorkspaceWindow()
+        { 
+            DataContext = vm
+        };
+        vww.Show();
     }
 
     [ObservableProperty]

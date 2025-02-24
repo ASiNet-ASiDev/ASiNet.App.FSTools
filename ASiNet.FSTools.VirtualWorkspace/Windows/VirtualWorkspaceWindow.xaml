@@ -9,5 +9,5 @@
         WindowStyle="None" AllowsTransparency="True"
         Height="450" Width="800" BorderThickness="0"
         Background="Transparent">
-    <controls:VirtualWorkspaceArea VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+    <controls:VirtualWorkspaceArea DataContext="{Binding AreaViewModel}" Contents="{Binding Contents}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 </Window>
