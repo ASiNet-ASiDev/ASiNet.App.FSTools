@@ -65,10 +65,16 @@ public partial class VirtualWorkspaceArea : Canvas, IMovementElement, IScaledEle
 
     private void AreaRoot_MouseMove(object sender, MouseEventArgs e)
     {
-        if(!Controller.ContainsMovementElement())
-            return;
-        var pos = e.GetPosition(PanelRoot);
-        Controller.InvokeMovement(pos, Scale);
+        if(Controller.ContainsMovementElement())
+        {
+            var pos = e.GetPosition(PanelRoot);
+            Controller.InvokeMovement(pos, Scale);
+        }
+        if (Controller.ContainsResizeElement())
+        {
+            var pos = e.GetPosition(AreaRoot);
+            Controller.InvokeResize(pos, Scale);
+        }
     }
 
     private void AreaRoot_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -81,12 +87,16 @@ public partial class VirtualWorkspaceArea : Canvas, IMovementElement, IScaledEle
     {
         if (Controller.ContainsMovementElement())
             Controller.EndMovement();
+        if (Controller.ContainsResizeElement())
+            Controller.EndResizeElement();
     }
 
     private void AreaRoot_MouseLeave(object sender, MouseEventArgs e)
     {
         if (Controller.ContainsMovementElement())
             Controller.EndMovement();
+        if (Controller.ContainsResizeElement())
+            Controller.EndResizeElement();
     }
 
     protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)

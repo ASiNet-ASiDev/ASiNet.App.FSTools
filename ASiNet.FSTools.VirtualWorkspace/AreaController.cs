@@ -16,6 +16,7 @@ public class AreaController
 
     private bool _isMovement;
     private bool _isScaled;
+    private bool _isResized;
 
     private bool _isConsiderScale;
 
@@ -98,13 +99,50 @@ public class AreaController
         return false;
     }
 
-    public bool StartResizeElement(IResizedElement element)
+    public bool StartResizeElement(Point position, IResizedElement element)
     {
-        return false;
+        if(_resizedElement is not null && _isResized)
+        {
+#if DEBUG
+            Debug.WriteLine($"CALLED START RESIZE: FALSE");
+#endif
+            return false;
+        }
+#if DEBUG
+        Debug.WriteLine($"CALLED START RESIZE: TRUE");
+#endif
+        _oldResizedPosition = position;
+        _resizedElement = element;
+        _isResized = true;
+        return true;
+    }
+
+    public void InvokeResize(Point position, double scale)
+    {
+        if(!_isResized)
+            return;
+        var offset = (_oldResizedPosition - position) / scale;
+#if DEBUG
+        Debug.WriteLine($"CALLED RESIZE: {offset}");
+#endif
+        _oldResizedPosition = position;
+        _resizedElement?.ResizeElement(offset, scale);
+    }
+
+    public void EndResizeElement()
+    {
+#if DEBUG
+        Debug.WriteLine($"CALLED END RESIZE.");
+#endif
+        _isResized = false;
+        _resizedElement = null;
     }
 
     public bool ContainsMovementElement() =>
         _movementElement is not null;
+
+    public bool ContainsResizeElement() =>
+        _resizedElement is not null;
 
     public bool ContainsCurrentMovementElement(IMovementElement element) =>
         _movementElement is not null && element == _movementElement;

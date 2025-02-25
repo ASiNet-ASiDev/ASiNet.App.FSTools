@@ -9,7 +9,7 @@ using ASiNet.FSTools.VirtualWorkspace.Interfaces.Controller;
 namespace ASiNet.FSTools.VirtualWorkspace;
 
 
-public partial class AreaWindow : Border, IMovementElement
+public partial class AreaWindow : Border, IMovementElement, IResizedElement
 {
     public AreaWindow(VirtualWorkspaceArea area)
     {
@@ -72,29 +72,6 @@ public partial class AreaWindow : Border, IMovementElement
     }
 
 
-    private void Header_MouseMove(object sender, MouseEventArgs e)
-    {
-        //if (!Header.IsMouseOver)
-        //    return;
-        //if (e.LeftButton == MouseButtonState.Pressed)
-        //{
-        //    var pos = e.GetPosition(_area);
-        //    if (_oldMousePos is null)
-        //    {
-        //        _oldMousePos = pos;
-        //        return;
-        //    }
-        //    var newPos = (_oldMousePos.Value - pos) / _area.Scale;
-        //    MoveWindow(newPos);
-        //    _oldMousePos = pos;
-        //}
-        //else
-        //{
-        //    _oldMousePos = null;
-        //}
-    }
-
-
     private void Header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         if(!_area.Controller.ContainsMovementElement())
@@ -107,12 +84,18 @@ public partial class AreaWindow : Border, IMovementElement
             _area.Controller.EndMovement();
     }
 
-    private void MoveWindow(Vector offset)
+    private void ResizeHandler_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
-        var matrix = matrixTransform.Matrix;
-        offset.Negate();
-        matrix.Translate(offset.X, offset.Y);
-        matrixTransform.Matrix = matrix;
+        e.Handled = true;
+        if (!_area.Controller.ContainsResizeElement())
+            _area.Controller.StartResizeElement(e.GetPosition(_area.AreaRoot), this);
+    }
+
+    private void ResizeHandler_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    {
+        e.Handled = true;
+        if (_area.Controller.ContainsResizeElement())
+            _area.Controller.EndResizeElement();
     }
 
     public void MoveElement(Vector offset, double scale)
@@ -123,18 +106,16 @@ public partial class AreaWindow : Border, IMovementElement
         matrixTransform.Matrix = matrix;
     }
 
-    private void ResizeWindow(Vector offset)
+    public void ResizeElement(Vector offset, double scale)
     {
-        var newOffset = offset / 2;
+        var newOffset = offset;
         var oldPos = _area.AreaRoot.TransformToVisual(this).Transform(new Point(0, 0));
         Width -= newOffset.X;
         Height -= newOffset.Y;
         _area.AreaRoot.UpdateLayout();
         var newPos = _area.AreaRoot.TransformToVisual(this).Transform(new Point(0, 0));
         var pos = oldPos - newPos;
-        MoveWindow(pos);
-        
-        Debug.WriteLine(pos);
+        MoveElement(pos, 1);
     }
 
     protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -174,26 +155,5 @@ public partial class AreaWindow : Border, IMovementElement
             UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
         };
         BindingOperations.SetBinding(target, property, bind);
-    }
-
-    private void ResizeHandler_MouseMove(object sender, MouseEventArgs e)
-    {
-        if (!ResizeHandler.IsMouseOver)
-            return;
-        if (e.LeftButton == MouseButtonState.Pressed)
-        {
-            var pos = e.GetPosition(_area);
-            if (_oldMousePos is null)
-            {
-                _oldMousePos = pos;
-                return;
-            }
-            var newPos = (_oldMousePos.Value - pos) / _area.Scale;
-            ResizeWindow(newPos);
-        }
-        else
-        {
-            _oldMousePos = null;
-        }
     }
 }
